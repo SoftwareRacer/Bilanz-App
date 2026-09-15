@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#143d2b">
+  <title>Grünwerk Kassa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="Grünwerk Startseite"><span class="brand-mark">G</span><span><strong>Grünwerk</strong><small>KASSA</small></span></a>
+    <nav aria-label="Hauptnavigation">
+      <button class="nav-item active" data-view="kassa"><span>⌂</span>Kassa</button>
+      <button class="nav-item" data-view="journal"><span>▤</span>Journal</button>
+      <button class="nav-item" data-view="bestand"><span>◇</span>Bestand</button>
+    </nav>
+    <div class="shift-card"><span class="status-dot"></span><div><small>Kasse geöffnet</small><strong id="shiftTime">Seit 08:00 Uhr</strong></div></div>
+    <button class="cash-close" id="closeCash">Kassenabschluss</button>
+    <div class="user"><span class="avatar">LM</span><div><strong>Lisa Maier</strong><small>Verkauf</small></div><button aria-label="Demo zurücksetzen" id="resetDemo">↻</button></div>
+  </aside>
+
+  <main>
+    <header>
+      <div><p class="eyebrow" id="todayLabel"></p><h1 id="viewTitle">Guten Morgen, Lisa.</h1></div>
+      <div class="header-actions"><button class="icon-button" aria-label="Benachrichtigungen">♧<span class="notification"></span></button><button class="primary" id="newSale">＋ Neuer Verkauf</button></div>
+    </header>
+
+    <section id="kassaView" class="view active">
+      <div class="metrics">
+        <article><div class="metric-icon green">↗</div><div><small>HEUTIGER UMSATZ</small><strong id="revenue">€ 0,00</strong><p><b>↑ 12,4 %</b> zu gestern</p></div></article>
+        <article><div class="metric-icon gold">€</div><div><small>BARBESTAND</small><strong id="cashBalance">€ 0,00</strong><p>inkl. € 200,00 Einlage</p></div></article>
+        <article><div class="metric-icon blue">▤</div><div><small>TRANSAKTIONEN</small><strong id="transactionCount">0</strong><p><b>Ø <span id="averageSale">€ 0,00</span></b> pro Einkauf</p></div></article>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel products-panel">
+          <div class="panel-head"><div><p class="eyebrow">SORTIMENT</p><h2>Was darf es sein?</h2></div><label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Produkt suchen …"></label></div>
+          <div class="filters" id="filters"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <aside class="panel cart-panel">
+          <div class="cart-title"><div><p class="eyebrow">AKTUELLER VERKAUF</p><h2>Warenkorb <span id="cartCount">0</span></h2></div><button class="text-button" id="clearCart">Leeren</button></div>
+          <div class="cart-items" id="cartItems"></div>
+          <div class="cart-summary">
+            <div><span>Zwischensumme</span><span id="subtotal">€ 0,00</span></div>
+            <div><span>USt.</span><span id="tax">€ 0,00</span></div>
+            <div class="total"><span>Gesamt</span><strong id="total">€ 0,00</strong></div>
+            <button class="checkout" id="checkout" disabled><span>Bezahlen</span><strong id="checkoutTotal">€ 0,00</strong></button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="journalView" class="view panel page-panel"><div class="panel-head"><div><p class="eyebrow">NACHVOLLZIEHBAR</p><h2>Kassenjournal</h2></div><button class="secondary" id="exportCsv">CSV exportieren</button></div><div class="table-wrap"><table><thead><tr><th>Beleg</th><th>Zeit</th><th>Zahlungsart</th><th>Artikel</th><th>Summe</th><th>Status</th><th></th></tr></thead><tbody id="journalBody"></tbody></table></div></section>
+    <section id="bestandView" class="view panel page-panel"><div class="panel-head"><div><p class="eyebrow">WARENWIRTSCHAFT</p><h2>Bestand</h2></div><span class="stock-summary" id="stockSummary"></span></div><div class="table-wrap"><table><thead><tr><th>Artikel</th><th>Kategorie</th><th>Einheit</th><th>Preis</th><th>Bestand</th><th>Status</th></tr></thead><tbody id="stockBody"></tbody></table></div></section>
+  </main>
+
+  <dialog id="paymentDialog"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Schließen">×</button><p class="eyebrow">ZAHLUNG ABSCHLIESSEN</p><h2 id="paymentAmount">€ 0,00</h2><p class="muted">Zahlungsart auswählen</p><div class="payment-methods"><button type="button" data-method="Bar" class="selected">€<span>Bar</span></button><button type="button" data-method="Karte">▣<span>Karte</span></button><button type="button" data-method="Gutschein">◇<span>Gutschein</span></button></div><div id="cashInputWrap"><label>Gegeben<input id="cashGiven" inputmode="decimal" placeholder="0,00"></label><div class="change"><span>Rückgeld</span><strong id="changeAmount">€ 0,00</strong></div></div><button type="button" class="checkout" id="confirmPayment">Zahlung bestätigen</button></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
